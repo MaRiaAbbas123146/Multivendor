@@ -7,7 +7,6 @@ import ShopAllEvents from '../pages/Shop/ShopAllEvents.jsx'
 import ShopPreviewPage from '../pages/Shop/ShopPreviewPage.jsx'
 import ShopAllOrders from '../pages/Shop/ShopAllOrders.jsx'
 import ShopOrderDetails from '../pages/Shop/ShopOrderDetails.jsx'
-import OrderDetailsPage from '../pages/Shop/OrderDetailsPage.jsx'
 
 
 export {
@@ -20,5 +19,4 @@ export {
   ShopPreviewPage,
   ShopAllOrders,
   ShopOrderDetails,
-  OrderDetailsPage
 }

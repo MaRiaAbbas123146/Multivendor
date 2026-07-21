@@ -11,7 +11,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 
 const AllOrders = () => {
 
-  const { orders, isLoading } = useSelector((state) => state.product)
+  const { orders, isLoading } = useSelector((state) => state.order)
   const { seller } = useSelector((state) => state.seller)
 
   const dispatch = useDispatch();

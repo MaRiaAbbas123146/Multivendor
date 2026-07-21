@@ -4,7 +4,8 @@ const ErrorHandler = require("../utils/ErrorHandler.js")
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
 const { isAuthenticated } = require("../middleware/auth.js")
 const Order = require("../model/order.model.js")
-const product = require("../model/product.model.js")
+const product = require("../model/product.model.js");
+const { trusted } = require("mongoose");
 
 router.post(
   "/create-order",
@@ -76,7 +77,45 @@ router.post(
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
-  }))
+  })),
 
+  //update order status for seller
+  router.put("/update-order-status/:id", catchAsyncErrors(async (req, res, next) => {
+    try {
+      const order = await Order.findById(req.params.id);
+
+      if (!order) {
+        return next(new ErrorHandler("Order not found with this id", 400));
+      }
+
+      if (req.body.status === "Transferred to delivery partner") {
+        order.cart.forEach(async (o) => {
+          await updateOrder(o._id, o.qty)
+        })
+      }
+
+      order.status = req.body.status;
+      if (req.body.status === "Delivered") {
+        order.deliverAt = Date.now()
+        order.paymentInfo.status = "Succeeded";
+      }
+
+      await order.save({ validateBeforeSave: false });
+      res.status(200).json({
+        success: true,
+        order
+      });
+
+      async function updateOrder(id, qty) {
+        const product = await Product.findById(id);
+        product.stock -= qty;
+        product.sold_out += qty;
+        await order.save({ validateBeforeSave: false });
+      }
+
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }))
 
 );
