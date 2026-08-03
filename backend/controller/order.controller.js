@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const ErrorHandler = require("../utils/ErrorHandler.js")
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
-const { isAuthenticated } = require("../middleware/auth.js")
+const { isAuthenticated, isSeller } = require("../middleware/auth.js")
 const Order = require("../model/order.model.js")
 const product = require("../model/product.model.js");
 const { trusted } = require("mongoose");
@@ -80,7 +80,7 @@ router.post(
   })),
 
   //update order status for seller
-  router.put("/update-order-status/:id", catchAsyncErrors(async (req, res, next) => {
+  router.put("/update-order-status/:id", isSeller, catchAsyncErrors(async (req, res, next) => {
     try {
       const order = await Order.findById(req.params.id);
 
@@ -116,6 +116,31 @@ router.post(
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
-  }))
+  })),
 
+  //Give a refund
+  router.put("/order-refund/:id", catchAsyncErrors(async (req, res, next) => {
+    try {
+      const order = await Order.findById(req.params.id);
+
+      if (!order) {
+        return next(new ErrorHandler("Order not found with this id", 400));
+      }
+
+
+      order.status = req.body.status;
+
+
+      await order.save({ validateBeforeSave: false });
+      res.status(200).json({
+        success: true,
+        order,
+        message: "Order Refund Successfully!"
+      });
+
+
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }))
 );

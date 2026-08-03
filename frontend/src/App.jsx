@@ -17,7 +17,8 @@ import {
   ShopCreatePage,
   SellerActivationPage,
   ShopLoginPage,
-  OrderDetailsPage
+  OrderDetailsPage,
+  TrackOrderPage
 } from './routes/Routes.jsx'
 import {
   ShopDaashboardPage,
@@ -109,7 +110,13 @@ const App = () => {
               <OrderDetailsPage />
             </ProtectedRoute>
           } />
+          <Route path='/user/track/order/:id' element={
+            <ProtectedRoute>
+              <TrackOrderPage />
+            </ProtectedRoute>
+          } />
           {/* shop routes */}
+          <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
           <Route path='/shop-create' element={<ShopCreatePage />} />
           <Route path='/shop-login' element={<ShopLoginPage />} />
           <Route path='/shop/:id' element={

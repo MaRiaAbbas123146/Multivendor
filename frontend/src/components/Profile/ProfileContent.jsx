@@ -5,7 +5,7 @@ import {
   AiOutlineDelete,
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { backend_url, server } from "../../server";
+import { server } from "../../server";
 import styles from "../../styles/styles";
 import { DataGrid } from "@material-ui/data-grid";
 import { Button } from "@material-ui/core";
@@ -25,7 +25,7 @@ import axios from "axios";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
 
 const ProfileContent = ({ active }) => {
-  const { user, error, updateAddressSuccessMessage } = useSelector((state) => state.user);
+  const { user, error, successMessage } = useSelector((state) => state.user);
   const [name, setName] = useState(user && user.name);
   const [email, setEmail] = useState(user && user.email);
   const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
@@ -46,45 +46,32 @@ const ProfileContent = ({ active }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserInformation(email, password, phoneNumber, name));
+    dispatch(updateUserInformation(name, email, phoneNumber, password));
   };
 
   const handleImage = async (e) => {
     const reader = new FileReader();
-    setAvatar(file);
-    const formData = new FormData()
-    formData.append("image", e.target.files[0])
-    await axios.put(`${server}/user/update-avatar`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      withCredentials: true
-    }).then((response) => {
-      window.location.reload()
-    }).catch((error) => {
-      toast.error(error)
-    })
 
-    // reader.onload = () => {
-    //   if (reader.readyState === 2) {
-    //     setAvatar(reader.result);
-    //     axios
-    //       .put(
-    //         `${server}/user/update-avatar`,
-    //         { avatar: reader.result },
-    //         {
-    //           withCredentials: true,
-    //         }
-    //       )
-    //       .then((response) => {
-    //         dispatch(loadUser());
-    //         toast.success("avatar updated successfully!");
-    //       })
-    //       .catch((error) => {
-    //         toast.error(error);
-    //       });
-    //   }
-    // };
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setAvatar(reader.result);
+        axios
+          .put(
+            `${server}/user/update-avatar`,
+            { avatar: reader.result },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((response) => {
+            dispatch(loadUser());
+            toast.success("avatar updated successfully!");
+          })
+          .catch((error) => {
+            toast.error(error);
+          });
+      }
+    };
 
     reader.readAsDataURL(e.target.files[0]);
   };
