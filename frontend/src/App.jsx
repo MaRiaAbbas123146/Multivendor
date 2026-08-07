@@ -30,7 +30,8 @@ import {
   ShopAllEvents,
   ShopAllCoupouns,
   ShopPreviewPage,
-  ShopOrderDetails
+  ShopOrderDetails,
+  ShopSettingsPage
 } from "./routes/ShopRoutes.jsx"
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -123,6 +124,11 @@ const App = () => {
           <Route path='/shop/:id' element={
             <SellerProtectedRoute >
               <ShopHomePage />
+            </SellerProtectedRoute>}
+          />
+          <Route path='/settings' element={
+            <SellerProtectedRoute >
+              <ShopSettingsPage />
             </SellerProtectedRoute>}
           />
           <Route path='/dashboard'
