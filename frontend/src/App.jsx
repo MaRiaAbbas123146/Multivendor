@@ -25,6 +25,7 @@ import {
   ShopCreateProduct,
   ShopAllProducts,
   ShopAllOrders,
+  ShopAllRefunds,
   ShopCreateEvents,
   ShopAllEvents,
   ShopAllCoupouns,
@@ -140,6 +141,12 @@ const App = () => {
             element={
               <SellerProtectedRoute >
                 <ShopAllOrders />
+              </SellerProtectedRoute>}
+          />
+          <Route path='/dashboard-refunds'
+            element={
+              <SellerProtectedRoute >
+                <ShopAllRefunds />
               </SellerProtectedRoute>}
           />
           <Route path='/order/:id'
