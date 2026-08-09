@@ -32,7 +32,8 @@ import {
   ShopPreviewPage,
   ShopOrderDetails,
   ShopSettingsPage,
-  ShopWithdrawMoneyPage
+  ShopWithdrawMoneyPage,
+  ShopInboxPage
 } from "./routes/ShopRoutes.jsx"
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -57,7 +58,6 @@ const App = () => {
   // async function getStripeKey() {
   //   const { data } = await axios.get(`${server}/payment/stripeApiKey`)
   //   setStripeApiKey(data.stripeApiKey)
-  // }
 
   // useEffect(() => {
   //   store.dispatch(loadUser());
@@ -190,6 +190,12 @@ const App = () => {
             element={
               <SellerProtectedRoute >
                 <ShopWithdrawMoneyPage />
+              </SellerProtectedRoute>}
+          />
+          <Route path='/dashboard-messages'
+            element={
+              <SellerProtectedRoute >
+                <ShopInboxPage />
               </SellerProtectedRoute>}
           />
           <Route path='/dashboard-preview'
