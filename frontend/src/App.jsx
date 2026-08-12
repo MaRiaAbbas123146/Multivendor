@@ -18,7 +18,8 @@ import {
   SellerActivationPage,
   ShopLoginPage,
   OrderDetailsPage,
-  TrackOrderPage
+  TrackOrderPage,
+  UserInbox
 } from './routes/Routes.jsx'
 import {
   ShopDaashboardPage,
@@ -103,11 +104,18 @@ const App = () => {
           } />
           <Route path='/payment' element={<PaymentPage />} />
           <Route path='/order/success' element={<OrderSuccessPage />} />
-          <Route path='/profile' element={
-            <ProtectedRoute>
-              <ProfilePage />
-            </ProtectedRoute>
-          } />
+          <Route path='/profile'
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            } />
+          <Route path='/inbox'
+            element={
+              <ProtectedRoute>
+                <UserInbox />
+              </ProtectedRoute>
+            } />
           <Route path='/user/order/:id' element={
             <ProtectedRoute>
               <OrderDetailsPage />
