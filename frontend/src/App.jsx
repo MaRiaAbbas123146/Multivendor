@@ -212,7 +212,8 @@ const App = () => {
                 <ShopPreviewPage />
               </SellerProtectedRoute>}
           />
-
+          {/* Admin Routes */}
+          <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
         </Routes>
         <ToastContainer
           position="bottom-center"
