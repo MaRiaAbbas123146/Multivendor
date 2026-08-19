@@ -6,7 +6,7 @@ const ErrorHandler = require("../utils/ErrorHandler")
 const ShopModel = require("../model/Shop.model")
 const multer = require("multer");
 const { upload } = require("../multer.js")
-const { isSeller } = require("../middleware/auth.js")
+const { isSeller, isAuthenticated, isAdmin } = require("../middleware/auth");
 const fs = require("fs")
 
 
@@ -164,6 +164,26 @@ router.put(
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));
+    }
+  })
+);
+
+// all products --- for admin
+router.get(
+  "/admin-all-products",
+  isAuthenticated,
+  isAdmin("Admin"),
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const products = await Product.find().sort({
+        createdAt: -1,
+      });
+      res.status(201).json({
+        success: true,
+        products,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
     }
   })
 );

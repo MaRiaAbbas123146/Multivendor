@@ -36,6 +36,7 @@ const payment = require("./controller/payment.controller")
 const order = require("./controller/order.controller")
 const conversation = require("./controller/conversation.controller")
 const message = require("./controller/messages.controller.js")
+const withdraw = require("./controller/withdraw.controller.js")
 
 app.use("/api/v2/conversation", conversation)
 app.use("/api/v2/message", message)
@@ -46,6 +47,7 @@ app.use("/api/v2/product", product)
 app.use("/api/v2/event", event)
 app.use("/api/v2/coupoun", coupoun)
 app.use("/api/v2/payment", payment)
+app.use("/api/v2/withdraw", withdraw);
 
 //it's for errorhandling
 app.use(ErrorHandler);
