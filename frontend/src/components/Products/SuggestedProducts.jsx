@@ -5,7 +5,7 @@ import ProductCard from "../Route/ProductCard/ProductCard";
 import { useSelector } from 'react-redux';
 
 const SuggestedProducts = ({ data }) => {
-  const { products } = useSelector((state) => state.products)
+  const { products } = useSelector((state) => state.product)
   const [productData, setProductData] = useState()
 
   useEffect(() => {

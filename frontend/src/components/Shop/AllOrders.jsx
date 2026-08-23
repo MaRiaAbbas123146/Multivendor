@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllOrdersShop } from '../../redux/actions/product';
+import { getAllOrdersOfShop } from '../../redux/actions/order';
 import { Link } from 'react-router-dom';
 import { Button } from "@mui/material";
 import Loader from '../Layout/Loader';
@@ -17,7 +17,7 @@ const AllOrders = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllOrdersShop(seller._id));
+    dispatch(getAllOrdersOfShop(seller._id));
   }, [dispatch, seller._id]);
 
 
@@ -94,7 +94,7 @@ const AllOrders = () => {
           <div className='w-full mx-8 pt-1 mt-10 bg-white'>
 
             <DataGrid
-              rows={rows}
+              rows={row}
               columns={columns}
               pageSize={10}
               disableSelectionOnClick
@@ -108,4 +108,4 @@ const AllOrders = () => {
   )
 }
 
-export default AllProducts
+export default AllOrders

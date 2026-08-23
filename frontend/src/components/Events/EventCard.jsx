@@ -18,7 +18,7 @@ const EventCard = ({ active, data }) => {
         toast.error("Product stock limited!");
       } else {
         const cartData = { ...data, qty: 1 };
-        dispatch(addTocart(cartData));
+        dispatch(addToCart(cartData));
         toast.success("Item added to cart successfully!");
       }
     }

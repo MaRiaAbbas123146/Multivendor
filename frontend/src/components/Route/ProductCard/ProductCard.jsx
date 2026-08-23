@@ -12,11 +12,11 @@ import styles from "../../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
 import {
-  addToWishlist,
-  removeFromWishlist,
+  addToWishList,
+  removeFromWishList,
 } from "../../../redux/actions/wishlist";
 import { useEffect } from "react";
-import { addTocart } from "../../../redux/actions/cart";
+import { addToCart } from "../../../redux/actions/cart";
 import { toast } from "react-toastify";
 import Ratings from "../../Products/Ratings";
 
@@ -35,14 +35,14 @@ const ProductCard = ({ data, isEvent }) => {
     }
   }, [wishlist]);
 
-  const removeFromWishlistHandler = (data) => {
+  const removeFromWishListHandler = (data) => {
     setClick(!click);
-    dispatch(removeFromWishlist(data));
+    dispatch(removeFromWishList(data));
   };
 
-  const addToWishlistHandler = (data) => {
+  const addToWishListHandler = (data) => {
     setClick(!click);
-    dispatch(addToWishlist(data));
+    dispatch(addToWishList(data));
   };
 
   const addToCartHandler = (id) => {
@@ -54,7 +54,7 @@ const ProductCard = ({ data, isEvent }) => {
         toast.error("Product stock limited!");
       } else {
         const cartData = { ...data, qty: 1 };
-        dispatch(addTocart(cartData));
+        dispatch(addToCart(cartData));
         toast.success("Item added to cart successfully!");
       }
     }
@@ -107,7 +107,7 @@ const ProductCard = ({ data, isEvent }) => {
             <AiFillHeart
               size={22}
               className="cursor-pointer absolute right-2 top-5"
-              onClick={() => removeFromWishlistHandler(data)}
+              onClick={() => removeFromWishListHandler(data)}
               color={click ? "red" : "#333"}
               title="Remove from wishlist"
             />
@@ -115,7 +115,7 @@ const ProductCard = ({ data, isEvent }) => {
             <AiOutlineHeart
               size={22}
               className="cursor-pointer absolute right-2 top-5"
-              onClick={() => addToWishlistHandler(data)}
+              onClick={() => addToWishListHandler(data)}
               color={click ? "red" : "#333"}
               title="Add to wishlist"
             />

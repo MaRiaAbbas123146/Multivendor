@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { backend_url } from '../../../server'
 
-const DaashboardHeader = () => {
+const DashboardHeader = () => {
   const { seller } = useSelector((state) => state.seller)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -131,4 +131,4 @@ const DaashboardHeader = () => {
   )
 }
 
-export default DaashboardHeader
+export default DashboardHeader

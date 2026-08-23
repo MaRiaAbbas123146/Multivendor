@@ -1,5 +1,5 @@
 import React from 'react'
-import DaashboardHeader from '../../components/Shop/Layout/DaashboardHeader.jsx'
+import DaashboardHeader from '../../components/Shop/Layout/DashboardHeader.jsx'
 import DashboardSideBar from '../../components/Shop/Layout/DashboardSideBar.jsx'
 import CreateProduct from '../../components/Shop/CreateProduct.jsx'
 

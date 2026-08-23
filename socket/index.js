@@ -4,10 +4,23 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server);
 
 require("dotenv").config({
   path: "./.env",
+});
+
+// Socket.IO needs its own CORS config — app.use(cors()) only
+// covers Express HTTP routes, not the socket handshake.
+const io = socketIO(server, {
+  cors: {
+    origin: [
+      "http://localhost:5173", // dev frontend
+      // add your deployed frontend URL here once you deploy, e.g.
+      // "https://your-frontend.vercel.app",
+    ],
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
 });
 
 app.use(cors());
@@ -32,8 +45,9 @@ const getUser = (receiverId) => {
   return users.find((user) => user.userId === receiverId);
 };
 
-// Define a message object with a seen property
+// Define a message object with an id and seen property
 const createMessage = ({ senderId, receiverId, text, images }) => ({
+  id: Date.now().toString() + Math.random().toString(36).slice(2, 8),
   senderId,
   receiverId,
   text,
@@ -66,7 +80,7 @@ io.on("connection", (socket) => {
       messages[receiverId].push(message);
     }
 
-    // send the message to the recevier
+    // send the message to the receiver
     io.to(user?.socketId).emit("getMessage", message);
   });
 

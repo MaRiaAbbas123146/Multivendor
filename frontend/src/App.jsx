@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { server } from './server'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import {
   LoginPage,
@@ -22,7 +24,7 @@ import {
   UserInbox
 } from './routes/Routes.jsx'
 import {
-  ShopDaashboardPage,
+  ShopDashboardPage,
   ShopCreateProduct,
   ShopAllProducts,
   ShopAllOrders,
@@ -47,36 +49,34 @@ import {
 } from "./routes/AdminRoutes";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { useEffect } from 'react';
-import store from '../src/redux/store.jsx';
-import { loadSeller, loadUser } from '../src/redux/actions/user.jsx';
+import store from './redux/store.jsx';
+import { loadSeller, loadUser } from './redux/actions/user.jsx';
 
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import ProtectedAdminRoute from "./routes/ProtectedAdminRoute.jsx";
 import { ShopHomePage } from './ShopRoutes.jsx'
 import SellerProtectedRoute from './routes/SellerProtectedRoute.jsx';
 import { getAllProducts } from './redux/actions/product.jsx';
-import { getAllEvents } from './redux/actions/events.jsx'
+import { getAllEvents } from './redux/actions/event.jsx'
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js'
-  ;
+import { loadStripe } from '@stripe/stripe-js';
+
 
 const App = () => {
+  const [stripeApiKey, setStripeApiKey] = useState("")
 
-  // // // const navigate = useNavigate()
-  // const [stripeApiKey, setStripeApiKey] = useState("")
+  async function getStripeKey() {
+    const { data } = await axios.get(`${server}/payment/stripeApiKey`)
+    setStripeApiKey(data.stripeApiKey)
+  }
 
-  // async function getStripeKey() {
-  //   const { data } = await axios.get(`${server}/payment/stripeApiKey`)
-  //   setStripeApiKey(data.stripeApiKey)
-
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  //   store.dispatch(loadSeller())
-  //   store.dispatch(getAllProducts())
-  //   store.dispatch(getAllEvents())
-  //   getStripeKey()
-  // }, [])
+  useEffect(() => {
+    store.dispatch(loadUser());
+    store.dispatch(loadSeller())
+    store.dispatch(getAllProducts())
+    store.dispatch(getAllEvents())
+    getStripeKey()
+  }, [])
   return (
     <>
       <BrowserRouter>
@@ -153,7 +153,7 @@ const App = () => {
           <Route path='/dashboard'
             element={
               <SellerProtectedRoute >
-                <ShopDaashboardPage />
+                <ShopDashboardPage />
               </SellerProtectedRoute>}
           />
           <Route path='/dashboard-create-product'

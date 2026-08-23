@@ -1,4 +1,4 @@
-const Messages = require("../model/messages");
+const Messages = require("../model/messages.model");
 const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const express = require("express");

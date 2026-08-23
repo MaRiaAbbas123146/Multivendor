@@ -9,7 +9,7 @@ import { getAllProductsShop } from "../../redux/actions/product";
 
 const ShopInfo = ({ isOwner }) => {
   const [data, setData] = useState({});
-  const { products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.product);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();

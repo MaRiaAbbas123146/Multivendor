@@ -1,9 +1,9 @@
-const Shop = require("../model/shop");
+const Shop = require("../model/Shop.model");
 const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const express = require("express");
 const { isSeller, isAuthenticated, isAdmin } = require("../middleware/auth");
-const Withdraw = require("../model/withdraw");
+const Withdraw = require("../model/withdraw.model");
 const sendMail = require("../utils/sendMail");
 const router = express.Router();
 

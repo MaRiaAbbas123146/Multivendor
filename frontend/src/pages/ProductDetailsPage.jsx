@@ -9,7 +9,7 @@ import SuggestedProducts from "../components/Products/SuggestedProducts.jsx"
 import { useSelector } from 'react-redux'
 
 const ProductDetailsPage = () => {
-  const { allProducts } = useSelector((state) => state.products)
+  const { allProducts } = useSelector((state) => state.product)
   const { allEvents } = useSelector((state) => state.events)
   const { id } = useParams()
   const [data, setData] = useState(null)

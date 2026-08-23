@@ -4,20 +4,20 @@ import { BsCartPlus } from "react-icons/bs";
 import styles from "../../styles/styles";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromWishlist } from "../../redux/actions/wishlist";
-import { addTocart } from "../../redux/actions/cart";
+import { removeFromWishList } from "../../redux/actions/wishlist";
+import { addToCart } from "../../redux/actions/cart";
 
 const Wishlist = ({ setOpenWishlist }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
 
-  const removeFromWishlistHandler = (data) => {
-    dispatch(removeFromWishlist(data));
+  const removeFromWishListHandler = (data) => {
+    dispatch(removeFromWishList(data));
   };
 
   const addToCartHandler = (data) => {
     const newData = { ...data, qty: 1 };
-    dispatch(addTocart(newData));
+    dispatch(addToCart(newData));
     setOpenWishlist(false);
   }
 
@@ -58,7 +58,7 @@ const Wishlist = ({ setOpenWishlist }) => {
               <div className="w-full border-t">
                 {wishlist &&
                   wishlist.map((i, index) => (
-                    <CartSingle key={index} data={i} removeFromWishlistHandler={removeFromWishlistHandler} addToCartHandler={addToCartHandler} />
+                    <CartSingle key={index} data={i} removeFromWishListHandler={removeFromWishListHandler} addToCartHandler={addToCartHandler} />
                   ))}
               </div>
             </div>
@@ -69,7 +69,7 @@ const Wishlist = ({ setOpenWishlist }) => {
   );
 };
 
-const CartSingle = ({ data, removeFromWishlistHandler, addToCartHandler }) => {
+const CartSingle = ({ data, removeFromWishListHandler, addToCartHandler }) => {
   const [value, setValue] = useState(1);
   const totalPrice = data.discountPrice * value;
 
@@ -77,7 +77,7 @@ const CartSingle = ({ data, removeFromWishlistHandler, addToCartHandler }) => {
     <div className="border-b p-4">
       <div className="w-full 800px:flex items-center">
         <RxCross1 className="cursor-pointer 800px:mb-['unset'] 800px:ml-['unset'] mb-2 ml-2"
-          onClick={() => removeFromWishlistHandler(data)}
+          onClick={() => removeFromWishListHandler(data)}
         />
         <img
           src={`${data?.images[0]?.url}`}

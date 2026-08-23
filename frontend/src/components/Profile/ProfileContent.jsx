@@ -7,15 +7,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { server } from "../../server";
 import styles from "../../styles/styles";
-import { DataGrid } from "@material-ui/data-grid";
-import { Button } from "@material-ui/core";
+import { DataGrid } from "@mui/x-data-grid";
+import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { MdTrackChanges } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import {
   deleteUserAddress,
   loadUser,
-  updatUserAddress,
+  updateUserAddress,
   updateUserInformation,
 } from "../../redux/actions/user";
 import { Country, State } from "country-state-city";
@@ -565,7 +565,7 @@ const Address = () => {
       toast.error("Please fill all the fields!");
     } else {
       dispatch(
-        updatUserAddress(
+        updateUserAddress(
           country,
           city,
           address1,

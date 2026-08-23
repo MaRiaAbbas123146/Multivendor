@@ -1,7 +1,7 @@
 import React from 'react'
-import DaashboardHeader from '../../components/Shop/Layout/DaashboardHeader'
+import DaashboardHeader from '../../components/Shop/Layout/DashboardHeader.jsx'
 import Footer from '../../components/Layout/Footer'
-import DaashboardHeader from '../../components/Shop/OrderDetails.jsx'
+import OrderDetails from '../../components/Shop/OrderDetails.jsx'
 
 const ShopOrderDetails = () => {
   return (

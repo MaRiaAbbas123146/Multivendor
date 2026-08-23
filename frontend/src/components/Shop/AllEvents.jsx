@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { AiFillAccountBook, AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteEvent, getAllEventsShop } from "../../redux/actions/events";
+import { deleteEvent, getAllEventsShop } from "../../redux/actions/event";
 import Loader from "../Layout/Loader";
 
 const AllEvents = () => {
