@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux';
 import styles from '../../styles/styles'
 import EventCard from "./EventCard";
@@ -17,12 +17,12 @@ const Events = () => {
 
             <div className="w-full grid">
               {
-                allEvents.length !== 0 && (
-                  <EventCard data={allEvents && allEvents[0]} />
+                allEvents && allEvents.length !== 0 && allEvents[0] && (
+                  <EventCard data={allEvents[0]} />
                 )
               }
               <h4>{
-                allEvents?.length === 0 && (
+                (!allEvents || allEvents.length === 0) && (
                   'No Events have!'
                 )
               }
